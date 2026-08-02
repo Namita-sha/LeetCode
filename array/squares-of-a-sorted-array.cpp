@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        /*
+        Brute approach
+
+       for(int i=0;i<nums.size();++i){
+        nums[i]*=nums[i];
+
+       } 
+       sort(nums.begin(),nums.end());
+       return nums;
+    } 
+         */
+
+         int n=nums.size();
+         vector<int>result(n);
+         int left=0,right=n-1,pos=n-1;
+         while(left<=right){
+            if(abs(nums[left])>abs(nums[right])){
+                result[pos]=nums[left]*nums[left];
+                left++;
+            }
+                else{
+                    
+                result[pos]=nums[right]*nums[right];
+            right--;
+                }
+         pos--;
+         }
+            
+          return result;
+    }          
+};
