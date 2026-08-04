@@ -1,28 +1,23 @@
 class Solution {
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) {
-        // Dummy node simplifies edge case of removing head
-        ListNode dummy(0, head);
-
-        // First pass: count total nodes
-        int length = 0;
-        ListNode* current = head;
-        while (current != nullptr) {
-            length++;
-            current = current->next;
+       ListNode* fast=head;
+       ListNode* slow=head;
+       for(int i=0;i<n;i++){
+        fast=fast->next;
+        if(fast==NULL){
+            return head->next;
         }
+       }
+            while(fast->next!=NULL){
+                fast=fast->next;
+                slow=slow->next;
+            }
+            ListNode* delNode=slow->next;
+            slow->next=slow->next->next;
+            delete delNode;
+            return head;
 
-        // Second pass: advance (length - n) steps from dummy
-        ListNode* prev = &dummy;
-        for (int i = 0; i < length - n; i++) {
-            prev = prev->next;
-        }
-
-        // Remove the target node
-        ListNode* toDelete = prev->next;
-        prev->next = prev->next->next;
-        delete toDelete;
-
-        return dummy.next;
+       
     }
 };
