@@ -1,13 +1,16 @@
 class Solution {
 public:
     vector<int> shuffle(vector<int>& nums, int n) {
-         int[] result = new int[2 * n];
+          int maxVal = 1001;
+        for (int i = n - 1; i >= 0; i--) {
 
-        for (int i = 0; i < n; i++) {
-            result[2 * i] = nums[i];
-            result[2 * i + 1] = nums[n + i];
+            nums[2 * i + 1] += (nums[n + i] % maxVal) * maxVal;
+            nums[2 * i] += (nums[i] % maxVal) * maxVal;
+        }
+        for (int i = 0; i < 2 * n; i++) {
+            nums[i] = nums[i] / maxVal;
         }
 
-        return result;
+        return nums;
     }
 };
