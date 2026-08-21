@@ -1,19 +1,18 @@
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-    unordered_map<string, vector<string>> mp;
-
-        for (string s : strs) {
-            string sortedStr = s;
-            sort(sortedStr.begin(), sortedStr.end());
-            mp[sortedStr].push_back(s);
-        }
-
-        vector<vector<string>> result;
-        for (auto& it : mp) {
-            result.push_back(it.second);
-        }
-
-        return result;
+      unordered_map<string, vector<string>> groups;
+    for (const string& s : strs) {
+        // Sort characters to create a canonical key
+        string key = s;
+        sort(key.begin(), key.end());
+        // Group strings with the same sorted key
+        groups[key].push_back(s);
+    }
+    vector<vector<string>> result;
+    for (auto& pair : groups) {
+        result.push_back(move(pair.second));
+    }
+    return result;   
     }
 };
