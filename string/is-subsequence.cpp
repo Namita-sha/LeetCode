@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool isSubsequence(string s, string t) {
-        int n=s.length();
+         int n=s.length();
         int m=t.length();
         int l=0;
         int r=0;
