@@ -1,34 +1,24 @@
 class Solution {
 public:
     vector<int> sortedSquares(vector<int>& nums) {
-        /*
-        Brute approach
+        int n=nums.size();
+       int left=0;
+       int right=n-1;
+       vector<int> temp(n,0); // to store sorted squares 
+       for(int i=n-1;i>=0;i--){ // so to store biggest number at  end
 
-       for(int i=0;i<nums.size();++i){
-        nums[i]*=nums[i];
+        int leftSquare=nums[left]*nums[left];
+        int rightSquare=nums[right]*nums[right];
 
-       } 
-       sort(nums.begin(),nums.end());
-       return nums;
-    } 
-         */
-
-         int n=nums.size();
-         vector<int>result(n);
-         int left=0,right=n-1,pos=n-1;
-         while(left<=right){
-            if(abs(nums[left])>abs(nums[right])){
-                result[pos]=nums[left]*nums[left];
-                left++;
-            }
-                else{
-                    
-                result[pos]=nums[right]*nums[right];
+        if(leftSquare>rightSquare){
+            temp[i]=leftSquare;
+            left++;
+        }
+        else{
+            temp[i]=rightSquare;
             right--;
-                }
-         pos--;
-         }
-            
-          return result;
-    }          
+        }
+       }
+       return temp;
+    }
 };

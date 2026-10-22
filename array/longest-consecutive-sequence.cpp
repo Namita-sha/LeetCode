@@ -1,26 +1,25 @@
 class Solution {
 public:
     int longestConsecutive(vector<int>& nums) {
-        if (nums.empty()) return 0;
-
-        sort(nums.begin(), nums.end());
-
-        int longestStreak = 1;
-        int currentStreak = 1;
-
-        for (int i = 1; i < nums.size(); i++) {
-            if (nums[i] == nums[i - 1] + 1) {
-                // Consecutive, extend the streak
-                currentStreak++;
-            } else if (nums[i] != nums[i - 1]) {
-                // Not a duplicate, streak breaks
-                currentStreak = 1;
-            }
-            // If nums[i] == nums[i-1], it's a duplicate — skip it
-
-            longestStreak = max(longestStreak, currentStreak);
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        if(nums.size()==0){ //if no element present
+            return 0;
         }
-
-        return longestStreak;
+        int count=1; //as even if one element 1 leng always be there
+        int longest=1;
+        for(int i=0;i<n-1;i++){
+            if(nums[i+1]-nums[i]==1){ //for consecutives 
+                count++;
+            }
+            else if(nums[i+1]-nums[i]==0){ //if same elements exist together
+             //do nothing
+            }
+            else{
+                count=1; //reset the count
+            }
+            longest=max(longest,count); //compare d for every loop value
+        }
+        return longest;
     }
 };

@@ -1,34 +1,57 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-   vector<vector<int>> result;
-    sort(nums.begin(), nums.end());
-    int n = nums.size();
-
-    for (int i = 0; i < n - 2; i++) {
-        // Skip duplicates for the first element
-        if (i > 0 && nums[i] == nums[i - 1]) continue;
-
-        int left = i + 1;
-        int right = n - 1;
-
-        while (left < right) {
-            int sum = nums[i] + nums[left] + nums[right];
-
-            if (sum == 0) {
-                result.push_back({nums[i], nums[left], nums[right]});
-                left++;
-                right--;
-
-                // Skip duplicates for left and right
-                while (left < right && nums[left] == nums[left - 1]) left++;
-                while (left < right && nums[right] == nums[right + 1]) right--;
-            }
-            else if (sum < 0) left++;
-            else right--;
+        int n = nums.size();
+        vector<vector<int>> answer;
+        if (n < 3) {
+            return answer;
         }
-    }
 
-    return result;
-}
+        sort(nums.begin(), nums.end());
+
+        for (int fixed = 0; fixed < n - 2; fixed++) {
+         
+            if (fixed > 0 && nums[fixed] == nums[fixed - 1]) {
+                continue;
+            }
+            int left = fixed + 1;
+            int right = n - 1;
+
+            while (left < right) {
+                long long sum =
+                    (long long) nums[fixed] +
+                    nums[left] +
+                    nums[right];
+                if (sum < 0) {
+                    left++;
+                }
+                else if (sum > 0) {
+                    right--;
+                }
+                else {
+                    answer.push_back({
+                        nums[fixed],
+                        nums[left],
+                        nums[right]
+                    });
+
+                    left++;
+                    right--;
+
+                    while (left < right &&
+                           nums[left] == nums[left - 1]) {
+                        left++;
+                    }
+
+                    while (left < right &&
+                           nums[right] == nums[right + 1]) {
+                        right--;
+                    }
+                }
+            }
+        }
+
+        return answer;
+    }
 };
+
